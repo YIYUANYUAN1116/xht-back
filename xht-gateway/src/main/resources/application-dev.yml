@@ -1,0 +1,42 @@
+server:
+  port: 8091
+spring:
+  application:
+    name: xht-gateway
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://192.168.213.134:3306/xht_back?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: yzd2021$$
+
+  data:
+    redis:
+      host: 192.168.213.134
+      port: 6379
+      password: yzd2021$$
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.213.134:8848
+
+    gateway:
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+      metrics:
+        # 开启 GatewayMetricsFilter
+        enabled: true
+      routes: #在加载的时候会被解析为RouteDefinition对象集合,包含 id,uri,predicate,filters,metadata,order
+        - id: xht-oauth
+          uri: http://localhost:8092
+          predicates:
+            - Path=/api/oauth/**
+          filters: #可对request,response 自定义(重写路径，过滤器)，这里相当于定义了一个filter,放在gateway 的filterChain 中
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
+      enabled: true
+xht:
+  ignore-url:
+    - /api/oauth/login
