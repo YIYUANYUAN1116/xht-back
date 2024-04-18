@@ -1,10 +1,13 @@
 package com.xht.oauth.component;
 
+import com.xht.model.dto.oauth.RoleDto;
+import com.xht.model.dto.oauth.UserDto;
 import com.xht.oauth.service.RoleService;
 import com.xht.oauth.service.UserService;
 import com.xht.model.entity.User;
 import com.xht.model.entity.Role;
 import jakarta.annotation.Resource;
+import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,14 +33,16 @@ public class XhtUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //1.查询用户
-        User user = userService.getByName(username);
-        if (user == null){
+        UserDto userDto = userService.getByName(username);
+        if (userDto == null){
             throw new UsernameNotFoundException(username + " can not found !");
         }
         //2.查询用户权限
-        List<Role>  roleList = roleService.getByUserId(user.getId());
-        List<String> list = roleList.stream().map(Role::getRoleCode).toList();
+        List<RoleDto> roleDtoList = userDto.getRoleDtoList();
+        List<String> list = roleDtoList.stream().map(RoleDto::getRoleCode).toList();
         List<GrantedAuthority> grantedAuthorityList = AuthorityUtils.createAuthorityList(list);
+        User user = new User();
+        BeanUtils.copyProperties(userDto,user);
         return new XhtUserDetails(user.getId(),user.getUsername(), user.getPassword(), user,grantedAuthorityList);
 
     }

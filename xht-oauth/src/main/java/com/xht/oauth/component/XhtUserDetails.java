@@ -1,5 +1,6 @@
 package com.xht.oauth.component;
 
+import com.xht.model.dto.oauth.UserDto;
 import com.xht.model.entity.User;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

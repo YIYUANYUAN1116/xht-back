@@ -1,6 +1,7 @@
 package com.xht.oauth.service.impl;
 
 
+import com.xht.model.dto.oauth.UserDto;
 import com.xht.oauth.mapper.UserMapper;
 import com.xht.model.entity.User;
 import com.xht.oauth.service.UserService;
@@ -22,7 +23,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
     @Override
-    public User getByName(String username) {
+    public UserDto getByName(String username) {
         return userMapper.getByName(username);
     }
 }

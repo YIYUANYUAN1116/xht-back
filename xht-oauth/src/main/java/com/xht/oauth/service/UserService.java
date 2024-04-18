@@ -2,6 +2,7 @@ package com.xht.oauth.service;
 
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.xht.model.dto.oauth.UserDto;
 import com.xht.model.entity.User;
 
 /**
@@ -14,5 +15,5 @@ import com.xht.model.entity.User;
  */
 public interface UserService extends IService<User> {
 
-    User getByName(String username);
+    UserDto getByName(String username);
 }

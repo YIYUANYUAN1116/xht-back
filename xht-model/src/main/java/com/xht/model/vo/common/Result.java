@@ -19,6 +19,10 @@ public class Result<T> {
     @Schema(description = "响应消息")
     private String errorMessage;
 
+    //返回消息
+    @Schema(description = "响应类型")
+    private String showType;
+
     //返回数据
     @Schema(description = "业务数据")
     private T data;
@@ -43,5 +47,9 @@ public class Result<T> {
 
     public static <T> Result build(Boolean success,ResultCodeEnum resultCodeEnum) {
         return build(null ,success, resultCodeEnum.getCode() , resultCodeEnum.getMessage()) ;
+    }
+
+    public static <T> Result build(ResultCodeEnum resultCodeEnum) {
+        return build(null ,true, resultCodeEnum.getCode() , resultCodeEnum.getMessage()) ;
     }
 }

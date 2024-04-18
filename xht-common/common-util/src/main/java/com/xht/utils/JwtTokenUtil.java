@@ -2,6 +2,7 @@ package com.xht.utils;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.xht.model.dto.oauth.UserDto;
 import com.xht.model.entity.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

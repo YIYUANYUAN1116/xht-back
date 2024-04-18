@@ -13,6 +13,25 @@
         <result column="avatar" property="avatar" />
     </resultMap>
 
+    <resultMap id="UserDtoMap" type="com.xht.model.dto.oauth.UserDto">
+        <result column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="email" property="email" />
+        <result column="avatar" property="avatar" />
+        <collection property="roleDtoList" ofType="com.xht.model.dto.oauth.RoleDto" resultMap="RoleDtoMap"/>
+    </resultMap>
+
+    <resultMap id="RoleDtoMap" type="com.xht.model.dto.oauth.RoleDto">
+        <result column="id" property="id" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+        <result column="role_code" property="roleCode" />
+        <result column="role_name" property="roleName" />
+    </resultMap>
+
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id,
@@ -20,9 +39,11 @@
         update_time,
         username, password, email, avatar
     </sql>
-    <select id="getByName" resultType="com.xht.model.entity.User">
-        select  <include refid="Base_Column_List"/>
+    <select id="getByName" resultMap="UserDtoMap">
+        select  u.id,u.username,u.password,u.email,u.avatar,u.create_time,u.update_time, r.role_name,r.role_code
         from user u
+        left join user_role_re urr on u.id = urr.user_id
+        left join role r on  r.id = urr.role_id
         where u.username = #{username} and u.is_deleted=0
     </select>
 

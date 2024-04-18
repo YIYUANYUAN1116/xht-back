@@ -31,8 +31,8 @@ public enum ResultCodeEnum {
     STOCK_LESS( 219, "库存不足!"),
 ;
 
-    private Integer code ;      // 业务状态码
-    private String message ;    // 响应消息
+    private final Integer code ;      // 业务状态码
+    private final String message ;    // 响应消息
 
     private ResultCodeEnum(Integer code , String message) {
         this.code = code ;

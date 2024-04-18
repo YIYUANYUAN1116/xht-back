@@ -2,6 +2,7 @@ package com.xht.oauth.mapper;
 
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.xht.model.dto.oauth.UserDto;
 import com.xht.model.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -17,5 +18,5 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
 
-    User getByName(@Param("username") String username);
+    UserDto getByName(@Param("username") String username);
 }

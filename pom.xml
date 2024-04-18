@@ -25,6 +25,7 @@
         <module>xht-common/common-util</module>
         <module>xht-common/common-service</module>
         <module>xht-model</module>
+        <module>xht-ai</module>
     </modules>
 
 
