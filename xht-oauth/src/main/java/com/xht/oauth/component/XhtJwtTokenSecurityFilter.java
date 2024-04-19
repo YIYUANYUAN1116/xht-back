@@ -6,8 +6,8 @@ import com.xht.model.constant.RedisKeyConst;
 import com.xht.model.entity.User;
 import com.xht.model.vo.common.ResultCodeEnum;
 
-import com.xht.service.exception.XhtException;
-import com.xht.utils.JwtTokenUtil;
+import com.xht.common.service.exception.XhtException;
+import com.xht.common.utils.JwtTokenUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

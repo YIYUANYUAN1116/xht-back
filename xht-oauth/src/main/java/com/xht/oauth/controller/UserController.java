@@ -7,7 +7,7 @@ import com.xht.model.vo.common.ResultStatus;
 import com.xht.model.vo.oauth.UserVo;
 import com.xht.oauth.component.XhtUserDetails;
 import com.xht.oauth.service.UserService;
-import com.xht.service.exception.XhtException;
+import com.xht.common.service.exception.XhtException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;

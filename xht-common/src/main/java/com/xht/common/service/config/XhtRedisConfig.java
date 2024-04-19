@@ -1,4 +1,4 @@
-package com.xht.service.config;
+package com.xht.common.service.config;
 
 import com.alibaba.fastjson2.support.spring.data.redis.FastJsonRedisSerializer;
 import org.springframework.context.annotation.Bean;
