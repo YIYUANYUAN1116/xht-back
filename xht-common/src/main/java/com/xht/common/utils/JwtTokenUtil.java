@@ -1,4 +1,4 @@
-package com.xht.utils;
+package com.xht.common.utils;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;

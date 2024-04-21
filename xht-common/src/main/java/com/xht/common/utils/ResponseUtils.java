@@ -1,5 +1,4 @@
-package com.xht.utils;
-
+package com.xht.common.utils;
 
 import com.alibaba.fastjson.JSON;
 import jakarta.servlet.http.HttpServletResponse;

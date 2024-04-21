@@ -1,7 +1,7 @@
 package com.xht.oauth.component;
 
 import com.xht.model.vo.common.ResultStatus;
-import com.xht.utils.ResponseUtils;
+import com.xht.common.utils.ResponseUtils;
 import com.xht.model.vo.common.Result;
 import com.xht.model.vo.common.ResultCodeEnum;
 import jakarta.servlet.http.HttpServletRequest;

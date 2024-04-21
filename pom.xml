@@ -21,9 +21,6 @@
         <module>xht-gateway</module>
         <module>xht-oauth</module>
         <module>xht-common</module>
-        <module>xht-common/common-log</module>
-        <module>xht-common/common-util</module>
-        <module>xht-common/common-service</module>
         <module>xht-model</module>
         <module>xht-ai</module>
     </modules>

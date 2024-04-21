@@ -1,4 +1,4 @@
-package com.xht.service.base.controller;
+package com.xht.common.service.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -8,8 +8,8 @@ import com.xht.model.vo.common.Result;
 import com.xht.model.vo.common.ResultCodeEnum;
 import com.xht.utils.ApprenticeUtil;
 import io.swagger.v3.oas.annotations.Operation;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -74,14 +74,15 @@ public class BaseController<S extends IService<E>, E> {
         Page<E> page = new Page<>(pageParamDto.getPageNum(), pageParamDto.getPageSize());
         QueryWrapper<E> queryWrapper = ApprenticeUtil.getQueryWrapper(pageParamDto.getParam());
         //升序
+
         String asc = pageParamDto.getAsc();
-        if (StringUtils.isNotEmpty(asc) && !"null".equals(asc)) {
+        if (!StringUtils.hasLength(asc) && !"null".equals(asc)) {
             String[] split = asc.split(",");
             queryWrapper.orderByAsc(Arrays.asList(split));
         }
         //降序
         String desc = pageParamDto.getDesc();
-        if (StringUtils.isNotEmpty(desc) && !"null".equals(desc)) {
+        if (!StringUtils.hasLength(desc) && !"null".equals(desc)) {
             String[] split = desc.split(",");
             queryWrapper.orderByDesc(Arrays.asList(split));
         }

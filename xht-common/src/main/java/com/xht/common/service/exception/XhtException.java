@@ -1,4 +1,4 @@
-package com.xht.service.exception;
+package com.xht.common.service.exception;
 
 import com.xht.model.vo.common.ResultCodeEnum;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.xht.service.config;
+package com.xht.common.service.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import io.swagger.v3.oas.models.OpenAPI;

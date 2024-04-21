@@ -20,18 +20,11 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.xht.model</groupId>
-			<artifactId>xht-model</artifactId>
+			<groupId>com.xht</groupId>
+			<artifactId>xht-common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-
-
-		<dependency>
-			<groupId>com.xht.service</groupId>
-			<artifactId>common-service</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 
 		<dependency>
 			<groupId>com.alibaba</groupId>
@@ -93,12 +86,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.xht.util</groupId>
-			<artifactId>common-util</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
-		</dependency>
+
 	</dependencies>
 
 	<build>
