@@ -1,11 +1,12 @@
 package com.xht.oauth.generator;
 
+import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.xht.model.entity.base.BaseEntity;
-import org.apache.commons.lang.StringUtils;
+
 
 import java.util.Collections;
 import java.util.Scanner;
