@@ -6,7 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@MapperScan("com.xht")
+@MapperScan(basePackages = {"com.xht.common.log.mapper"})
+//@MapperScan("com.xht") //service 会 not found
 @ComponentScan(value = "com.xht")
 public class XhtGatewayApplication {
 

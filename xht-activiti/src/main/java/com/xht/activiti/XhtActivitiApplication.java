@@ -10,7 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @date: 2024/4/22  22:42
  */
 @SpringBootApplication
-@MapperScan("com.xht")
+@MapperScan(basePackages = {"com.xht.activiti.mapper","com.xht.common.log.mapper"})
+//@MapperScan("com.xht") //service 会 not found
 @ComponentScan(value = "com.xht")
 public class XhtActivitiApplication {
     public static void main(String[] args) {
