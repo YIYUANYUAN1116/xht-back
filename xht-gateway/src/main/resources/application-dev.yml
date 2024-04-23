@@ -1,5 +1,5 @@
 server:
-  port: 8091
+  port: 8090
 spring:
   application:
     name: xht-gateway
@@ -31,7 +31,7 @@ spring:
         enabled: true
       routes: #在加载的时候会被解析为RouteDefinition对象集合,包含 id,uri,predicate,filters,metadata,order
         - id: xht-oauth
-          uri: http://localhost:8092
+          uri: http://localhost:8091
           predicates:
             - Path=/api/oauth/**
           filters: #可对request,response 自定义(重写路径，过滤器)，这里相当于定义了一个filter,放在gateway 的filterChain 中
