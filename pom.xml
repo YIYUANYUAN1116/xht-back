@@ -23,6 +23,7 @@
         <module>xht-common</module>
         <module>xht-model</module>
         <module>xht-ai</module>
+        <module>xht-activiti</module>
     </modules>
 
 

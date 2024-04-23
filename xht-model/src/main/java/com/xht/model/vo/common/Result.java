@@ -49,7 +49,17 @@ public class Result<T> {
         return build(null ,success, resultCodeEnum.getCode() , resultCodeEnum.getMessage()) ;
     }
 
+
+
     public static <T> Result build(ResultCodeEnum resultCodeEnum) {
         return build(null ,true, resultCodeEnum.getCode() , resultCodeEnum.getMessage()) ;
+    }
+
+    public static <T> Result buildSuccess(T data) {
+        return build(data ,true, ResultCodeEnum.SUCCESS) ;
+    }
+
+    public static <T> Result buildSuccess() {
+        return build(true, ResultCodeEnum.SUCCESS) ;
     }
 }

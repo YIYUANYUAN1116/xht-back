@@ -1,4 +1,4 @@
-package com.xht.oauth.generator;
+package com.xht.activiti.generator;
 
 import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.xht.model.entity.base.BaseEntity;
-
 
 import java.util.Collections;
 import java.util.Scanner;
@@ -41,14 +40,14 @@ public class CodeGenerater {
                 .globalConfig(builder -> {
                     builder.author("xht") // 设置作者
                             .commentDate("yyyy-MM-dd")   //注释日期
-                            .outputDir(System.getProperty("user.dir") + "/xht-oauth/src/main/java") // 指定输出目录
+                            .outputDir(System.getProperty("user.dir") + "/xht-activiti/src/main/java") // 指定输出目录
                             .disableOpenDir() //禁止打开输出目录，默认打开
                     ;
                 })
                 // 包配置
                 .packageConfig(builder -> {
-                    builder.parent("com.xht.oauth") // 设置父包名
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, System.getProperty("user.dir") + "/xht-oauth/src/main/resources/mappers")); // 设置mapperXml生成路径
+                    builder.parent("com.xht.activiti") // 设置父包名
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, System.getProperty("user.dir") + "/xht-activiti/src/main/resources/mappers")); // 设置mapperXml生成路径
                 })
                 // 策略配置
                 .strategyConfig(builder -> {
