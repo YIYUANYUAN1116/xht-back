@@ -28,14 +28,14 @@ public class ActivitiController {
 
     @PostMapping("/deploy")
     @Operation(summary = "部署")
-    public Result deploy(@RequestPart("file") MultipartFile file) throws Exception{
+    public Result deploy(@RequestPart("file") MultipartFile file){
         activitiService.deploy(file);
         return Result.buildSuccess();
     }
 
-    @GetMapping("/deploy")
-    @Operation(summary = "部署")
-    public Result deployList() throws Exception{
+    @GetMapping("/deployList")
+    @Operation(summary = "流程定义信息")
+    public Result deployList(){
         List<DeployVo> deployVoList = activitiService.deployList();
         return Result.buildSuccess(deployVoList);
     }

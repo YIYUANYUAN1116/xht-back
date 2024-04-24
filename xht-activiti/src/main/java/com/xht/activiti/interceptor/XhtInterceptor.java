@@ -1,6 +1,7 @@
 package com.xht.activiti.interceptor;
 
 import com.alibaba.fastjson2.JSON;
+import com.xht.activiti.component.XhtUserDetails;
 import com.xht.common.service.exception.XhtException;
 import com.xht.common.utils.JwtTokenUtil;
 import com.xht.model.constant.RedisKeyConst;
@@ -46,25 +47,21 @@ public class XhtInterceptor implements HandlerInterceptor {
                 // 3.1 校验
                 authorization = authorization.replace(jwtTokenUtil.getBearer(), "");
                 String userJson = (String) redisTemplate.opsForValue().get(RedisKeyConst.USER_TOKEN_KEY + authorization);
-                User user = JSON.parseObject(userJson, User.class);
+                XhtUserDetails user = JSON.parseObject(userJson, XhtUserDetails.class);
                 if (user == null) {
                     log.info("XhtJwtTokenSecurityFilter-user : null");
                     throw new XhtException(ResultCodeEnum.TOKEN_EXPIRED);
                 }
-                boolean validateToken = jwtTokenUtil.validateToken(authorization, user);
+                boolean validateToken = jwtTokenUtil.validateToken(authorization, user.getUser());
                 if (!validateToken) {
                     log.info("XhtJwtTokenSecurityFilter-validateToken : false");
                     throw new XhtException(ResultCodeEnum.TOKEN_EXPIRED);
                 }
                 // 3.3 组装认证信息
 //                UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-//                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
                 // 3.3 保存用户信息
-//                SecurityContextHolder.getContext().setAuthentication(authentication);
-
-
+                SecurityContextHolder.getContext().setAuthentication(authentication);
                 return HandlerInterceptor.super.preHandle(request, response, handler);
             }catch (Exception e){
                 throw new XhtException(e.getMessage(),null);

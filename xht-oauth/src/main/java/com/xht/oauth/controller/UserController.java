@@ -1,5 +1,6 @@
 package com.xht.oauth.controller;
 
+import com.xht.common.log.annotation.XhtLog;
 import com.xht.model.entity.User;
 import com.xht.model.vo.common.Result;
 import com.xht.model.vo.common.ResultCodeEnum;
@@ -34,6 +35,7 @@ public class UserController {
 
 
     @GetMapping("/currentUserInfo")
+    @XhtLog(title = "currentUserInfo",businessType = 1,isSaveRequestData = true,isSaveResponseData = true)
     public Result currentUserInfo(){
         UserVo userVo = new UserVo();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

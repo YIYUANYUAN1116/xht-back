@@ -6,14 +6,18 @@ import com.xht.model.vo.activiti.DeployVo;
 import com.xht.model.vo.common.Result;
 import com.xht.model.vo.common.ResultCodeEnum;
 import jakarta.persistence.Access;
+import org.activiti.engine.HistoryService;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
+import org.activiti.engine.repository.ProcessDefinition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
@@ -26,6 +30,9 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     @Autowired
     private RepositoryService repositoryService;
+
+    @Autowired
+    private HistoryService historyService;
 
     @Override
     public void deploy(MultipartFile file) {
@@ -42,6 +49,22 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     @Override
     public List<DeployVo> deployList() {
-        return null;
+        List<DeployVo> deployVos = new ArrayList<>();
+        List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
+        deployVos = list.stream().map(processDefinition -> {
+            DeployVo deployVo = new DeployVo();
+            deployVo.setDeployId(processDefinition.getDeploymentId());
+            Deployment deployment = repositoryService.createDeploymentQuery().deploymentId(processDefinition.getDeploymentId()).singleResult();
+            if (deployment != null) {
+                deployVo.setDeployTime(deployment.getDeploymentTime());
+                deployVo.setVersion(deployment.getVersion());
+            }
+            deployVo.setProcDefId(processDefinition.getId());
+            deployVo.setProcDefName(processDefinition.getName());
+            deployVo.setResourceName(processDefinition.getResourceName());
+            deployVo.setDescription(processDefinition.getDescription());
+            return deployVo;
+        }).toList();
+        return deployVos;
     }
 }
