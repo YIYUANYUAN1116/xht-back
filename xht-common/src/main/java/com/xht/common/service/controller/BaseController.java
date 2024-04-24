@@ -25,7 +25,7 @@ public class BaseController<S extends IService<E>, E> {
 
     @Operation(summary = "增")
     @PostMapping
-    public Result<Object> insert(@RequestBody E entity) {
+    public Result insert(@RequestBody E entity) {
         baseService.save(entity);
         return Result.build(ResultCodeEnum.SUCCESS);
     }
