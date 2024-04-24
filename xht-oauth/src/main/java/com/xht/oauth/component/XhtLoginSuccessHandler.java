@@ -1,6 +1,6 @@
 package com.xht.oauth.component;
 
-import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson.JSON;
 import com.xht.model.constant.RedisKeyConst;
 import com.xht.model.vo.common.ResultStatus;
 import com.xht.common.utils.JwtTokenUtil;
@@ -49,7 +49,7 @@ public class XhtLoginSuccessHandler implements AuthenticationSuccessHandler {
             throw new RuntimeException(e);
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        redisTemplate.opsForValue().set(RedisKeyConst.USER_TOKEN_KEY+token, JSON.toJSONString(xhtUserDetails.getUser()),7, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisKeyConst.USER_TOKEN_KEY+token, JSON.toJSONString(xhtUserDetails),7, TimeUnit.DAYS);
         ResponseUtils.buildResponse(response, Result.build(token, ResultStatus.SUCCESS, ResultCodeEnum.AUTHENTICATION_SUCCESS), HttpStatus.OK);
     }
 }

@@ -19,9 +19,10 @@
 	</properties>
 	<dependencies>
 
+
 		<dependency>
-			<groupId>com.xht</groupId>
-			<artifactId>xht-common</artifactId>
+			<groupId>com.xht.base</groupId>
+			<artifactId>xht-base</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

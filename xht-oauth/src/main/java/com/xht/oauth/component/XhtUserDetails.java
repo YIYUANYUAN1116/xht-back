@@ -2,7 +2,9 @@ package com.xht.oauth.component;
 
 import com.xht.model.dto.oauth.UserDto;
 import com.xht.model.entity.User;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
@@ -11,16 +13,18 @@ import java.io.Serializable;
 import java.util.*;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class XhtUserDetails implements UserDetails{
-    private final Long id;
-    private String password;
-    private final String username;
-    private final Set<GrantedAuthority> authorities;
-    private User user;
-    private final boolean accountNonExpired;
-    private final boolean accountNonLocked;
-    private final boolean credentialsNonExpired;
-    private final boolean enabled;
+    private  Long id;
+    private  String password;
+    private  String username;
+    private  Set<GrantedAuthority> authorities;
+    private  User user;
+    private  boolean accountNonExpired;
+    private  boolean accountNonLocked;
+    private  boolean credentialsNonExpired;
+    private  boolean enabled;
 
     public XhtUserDetails(Long id,String username, String password, User user,List<GrantedAuthority> authorities){
         this(id,username, password,user, authorities,true, true, true, true);

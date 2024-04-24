@@ -1,7 +1,6 @@
 package com.xht.oauth.component;
 
-import com.alibaba.fastjson2.JSON;
-
+import com.alibaba.fastjson.JSON;
 import com.xht.model.constant.RedisKeyConst;
 import com.xht.model.entity.User;
 import com.xht.model.vo.common.ResultCodeEnum;
@@ -65,18 +64,18 @@ public class XhtJwtTokenSecurityFilter extends OncePerRequestFilter {
                     // 3.1 校验
                     authorization = authorization.replace(jwtTokenUtil.getBearer(),"");
                     String userJson = (String) redisTemplate.opsForValue().get(RedisKeyConst.USER_TOKEN_KEY + authorization);
-                    User user = JSON.parseObject(userJson, User.class);
-                    if (user == null){
+                    XhtUserDetails xhtUserDetails = JSON.parseObject(userJson, XhtUserDetails.class);
+                    if (xhtUserDetails == null){
                         log.info("XhtJwtTokenSecurityFilter-user : null");
                         throw new XhtException(ResultCodeEnum.TOKEN_EXPIRED);
                     }
-                    boolean validateToken = jwtTokenUtil.validateToken(authorization, user);
+                    boolean validateToken = jwtTokenUtil.validateToken(authorization, xhtUserDetails.getUser());
                     if (!validateToken){
                         log.info("XhtJwtTokenSecurityFilter-validateToken : false");
                         throw new XhtException(ResultCodeEnum.TOKEN_EXPIRED);
                     }
                     // 3.3 组装认证信息
-                    UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+                    UserDetails userDetails = userDetailsService.loadUserByUsername(xhtUserDetails.getUsername());
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

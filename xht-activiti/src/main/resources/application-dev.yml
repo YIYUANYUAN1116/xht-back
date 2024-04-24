@@ -1,7 +1,5 @@
 server:
-  port: 8093
-  servlet:
-    context-path: /activiti
+  port: 8092
 
 spring:
   application:
@@ -19,6 +17,12 @@ spring:
       port: 6379
       password: yzd2021$$
 
+  activiti:
+    db-history-used: true
+    history-level: full
+    database-schema-update: true
+    check-process-definitions: false
+    deployment-mode: never-fail
 
   cloud:
     nacos:
@@ -26,7 +30,7 @@ spring:
         server-addr: 192.168.213.134:8848
 
 mybatis-plus:
-  mapper-locations: classpath:/mapper/*.xml
+  mapper-locations: classpath:/mappers/*.xml
   config-location: classpath:/mybatis-config.xml
   global-config:
     db-config:
