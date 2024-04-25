@@ -36,6 +36,12 @@ spring:
             - Path=/api/oauth/**
           filters: #可对request,response 自定义(重写路径，过滤器)，这里相当于定义了一个filter,放在gateway 的filterChain 中
             - RewritePath=/api/?(?<segment>.*), /$\{segment}
+        - id: xht-ativiti
+          uri: http://localhost:8092
+          predicates:
+            - Path=/api/activiti/**
+          filters: #可对request,response 自定义(重写路径，过滤器)，这里相当于定义了一个filter,放在gateway 的filterChain 中
+            - RewritePath=/api/?(?<segment>.*), /$\{segment}
       enabled: true
 xht:
   ignore-url:

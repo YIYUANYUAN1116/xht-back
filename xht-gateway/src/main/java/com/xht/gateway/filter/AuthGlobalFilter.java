@@ -73,11 +73,6 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
                 log.info("AuthGlobalFilter-user : null");
                 throw new XhtException(ResultCodeEnum.TOKEN_EXPIRED);
             }
-            boolean validateToken = jwtTokenUtil.validateToken(token, user);
-            if (!validateToken){
-                log.info("AuthGlobalFilter-validateToken : "+validateToken);
-                throw new XhtException(ResultCodeEnum.TOKEN_EXPIRED);
-            }
         }else {
             log.info("AuthGlobalFilter-authorization : null");
             throw new XhtException(ResultCodeEnum.NOT_AUTHENTICATION);
@@ -91,21 +86,4 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         return 0;
     }
 
-    private Mono<Void> buildResponse(ServerWebExchange exchange){
-        ServerHttpResponse response = exchange.getResponse();
-        response.setStatusCode(HttpStatus.UNAUTHORIZED);
-        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        String result = "";
-        try {
-            Map<String, Object> map = new HashMap<>(16);
-            map.put("code", HttpStatus.UNAUTHORIZED.value());
-            map.put("message", "当前请求未认证，不允许访问");
-            map.put("data", null);
-            result = objectMapper.writeValueAsString(map);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        DataBuffer buffer = response.bufferFactory().wrap(result.getBytes(StandardCharsets.UTF_8));
-        return response.writeWith(Flux.just(buffer));
-    }
 }

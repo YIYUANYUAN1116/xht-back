@@ -21,7 +21,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
  * @author : YIYUANYUAN
  * @date: 2024/4/22  22:59
  */
-@Component
+//@Component
 @Slf4j
 public class XhtInterceptor implements HandlerInterceptor {
 

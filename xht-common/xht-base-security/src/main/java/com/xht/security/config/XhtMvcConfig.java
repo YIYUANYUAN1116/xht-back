@@ -3,6 +3,7 @@ package com.xht.security.config;
 
 import com.xht.security.interceptor.XhtInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -13,8 +14,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class XhtMvcConfig implements WebMvcConfigurer {
-    @Autowired
-    private XhtInterceptor xhtInterceptor;
+//    @Autowired
+//    private XhtInterceptor xhtInterceptor;
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         // 对swagger的请求不进行拦截
@@ -23,7 +24,11 @@ public class XhtMvcConfig implements WebMvcConfigurer {
                 "/swagger-ui/**",
                 "/swagger-resources/**",
                 "/v3/api-docs/**"};
-        registry.addInterceptor(xhtInterceptor).addPathPatterns("/**").excludePathPatterns(excludePatterns);
+        registry.addInterceptor(xhtInterceptor()).addPathPatterns("/**").excludePathPatterns(excludePatterns);
     }
 
+    @Bean
+    public XhtInterceptor xhtInterceptor(){
+        return new XhtInterceptor();
+    }
 }
