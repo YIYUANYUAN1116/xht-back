@@ -3,7 +3,9 @@ package com.xht.model.entity;
 import com.xht.model.entity.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Schema(description = "SysOperLog")
 public class SysOperLog extends BaseEntity {

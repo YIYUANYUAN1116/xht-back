@@ -30,7 +30,6 @@ public class LogAspect {
 
         // 构建前置参数
         SysOperLog sysOperLog = new SysOperLog() ;
-
         LogUtil.beforeHandleLog(xhtLog , joinPoint , sysOperLog) ;
 
         Object proceed = null;

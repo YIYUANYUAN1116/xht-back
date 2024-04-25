@@ -1,12 +1,16 @@
 package com.xht.activiti.controller;
 
 import com.xht.activiti.service.ActivitiService;
+import com.xht.model.dto.activiti.ApplyDto;
 import com.xht.model.vo.activiti.DeployVo;
+import com.xht.model.vo.activiti.TaskVo;
 import com.xht.model.vo.common.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
+import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -39,4 +43,26 @@ public class ActivitiController {
         List<DeployVo> deployVoList = activitiService.deployList();
         return Result.buildSuccess(deployVoList);
     }
+
+    @PostMapping("/apply")
+    @Operation(summary = "开启一个流程")
+    public Result apply(@RequestBody ApplyDto applyDto){
+        activitiService.apply(applyDto);
+        return Result.buildSuccess();
+    }
+
+    @GetMapping("/getCurTaskById")
+    @Operation(summary = "获取用户待处理task")
+    public Result getCurTaskById(@RequestParam Integer  userId){
+        List<TaskVo> list = activitiService.getCurTaskById(userId);
+        return Result.buildSuccess(list);
+    }
+
+    @GetMapping("/getHiTaskById")
+    @Operation(summary = "获取用户task")
+    public Result getHiTaskById(@RequestParam Integer  userId){
+        List<TaskVo> list = activitiService.getHiTaskById(userId);
+        return Result.buildSuccess(list);
+    }
+
 }
