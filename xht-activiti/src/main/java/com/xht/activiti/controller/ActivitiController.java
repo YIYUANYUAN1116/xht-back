@@ -2,21 +2,16 @@ package com.xht.activiti.controller;
 
 import com.xht.activiti.service.ActivitiService;
 import com.xht.model.dto.activiti.ApplyDto;
+import com.xht.model.dto.activiti.CompleteTaskDto;
 import com.xht.model.vo.activiti.DeployVo;
 import com.xht.model.vo.activiti.TaskVo;
 import com.xht.model.vo.common.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.activiti.engine.repository.Deployment;
-import org.activiti.engine.repository.DeploymentBuilder;
-import org.activiti.engine.repository.ProcessDefinition;
-import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
-import java.util.zip.ZipInputStream;
 
 /**
  * @author : YIYUANYUAN
@@ -59,10 +54,18 @@ public class ActivitiController {
     }
 
     @GetMapping("/getHiTaskById")
-    @Operation(summary = "获取用户task")
+    @Operation(summary = "获取用户历史task")
     public Result getHiTaskById(@RequestParam Integer  userId){
         List<TaskVo> list = activitiService.getHiTaskById(userId);
         return Result.buildSuccess(list);
+    }
+
+
+    @GetMapping("/completeTask")
+    @Operation(summary = "完成任务")
+    public Result completeTask(@RequestBody CompleteTaskDto completeTaskDto){
+        activitiService.completeTask(completeTaskDto);
+        return Result.buildSuccess();
     }
 
 }

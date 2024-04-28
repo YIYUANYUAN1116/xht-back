@@ -17,5 +17,6 @@ public class TaskVo {
     private String procInsId;
     private Date creatTime;
     private Date endTime;
-
+    private String status;
+    private String remark;
 }

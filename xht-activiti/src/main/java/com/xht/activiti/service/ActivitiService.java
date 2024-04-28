@@ -1,6 +1,7 @@
 package com.xht.activiti.service;
 
 import com.xht.model.dto.activiti.ApplyDto;
+import com.xht.model.dto.activiti.CompleteTaskDto;
 import com.xht.model.vo.activiti.DeployVo;
 import com.xht.model.vo.activiti.TaskVo;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,4 +24,6 @@ public interface ActivitiService {
     List<TaskVo> getCurTaskById(Integer userId);
 
     List<TaskVo> getHiTaskById(Integer userId);
+
+    void completeTask(CompleteTaskDto completeTaskDto);
 }

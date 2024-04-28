@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.xht.model.constant.RedisKeyConst;
 import com.xht.model.vo.common.ResultCodeEnum;
 import com.xht.security.common.service.exception.XhtException;
+import com.xht.security.common.utils.AuthContextUtil;
 import com.xht.security.common.utils.JwtTokenUtil;
 import com.xht.security.component.XhtUserDetails;
 import jakarta.servlet.http.HttpServletRequest;
@@ -55,6 +56,8 @@ public class XhtInterceptor implements HandlerInterceptor {
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(xhtUserDetails, null, xhtUserDetails.getAuthorities());
                 // 3.3 保存用户信息
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                AuthContextUtil.xhtUserDetails = xhtUserDetails;
+                AuthContextUtil.user = xhtUserDetails.getUser();
                 return HandlerInterceptor.super.preHandle(request, response, handler);
             }catch (Exception e){
                 throw new XhtException(e.getMessage(),null);

@@ -29,6 +29,9 @@ public enum ResultCodeEnum {
     DATA_ERROR(204, "数据异常!"),
 
     STOCK_LESS( 219, "库存不足!"),
+
+    //ACTIVTI
+    CANNOT_DID(999,"当前用户不能处理改任务");
 ;
 
     private final Integer code ;      // 业务状态码
