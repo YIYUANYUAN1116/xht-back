@@ -19,6 +19,7 @@ import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.repository.ProcessDefinitionQuery;
 import org.activiti.engine.task.Task;
 import org.activiti.engine.task.TaskQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +69,12 @@ public class ActivitiServiceImpl implements ActivitiService {
     }
 
     @Override
-    public List<DeployVo> deployList() {
-        List<ProcessDefinition> list = repositoryService.createProcessDefinitionQuery().list();
+    public List<DeployVo> deployList(Integer current,Integer pageSize,String procDefName) {
+        ProcessDefinitionQuery definitionQuery = repositoryService.createProcessDefinitionQuery();
+        if (procDefName != null){
+            definitionQuery.processDefinitionName(procDefName);
+        }
+        List<ProcessDefinition> list = definitionQuery.listPage(current-1, pageSize);
         return list.stream().map(processDefinition -> {
             DeployVo deployVo = new DeployVo();
             deployVo.setDeployId(processDefinition.getDeploymentId());
@@ -77,6 +82,7 @@ public class ActivitiServiceImpl implements ActivitiService {
             if (deployment != null) {
                 deployVo.setDeployTime(deployment.getDeploymentTime());
                 deployVo.setVersion(deployment.getVersion());
+                deployVo.setDeployName(deployment.getName());
             }
             deployVo.setProcDefId(processDefinition.getId());
             deployVo.setProcDefName(processDefinition.getName());

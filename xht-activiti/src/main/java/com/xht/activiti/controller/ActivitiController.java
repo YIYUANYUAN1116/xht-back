@@ -34,8 +34,10 @@ public class ActivitiController {
 
     @GetMapping("/deployList")
     @Operation(summary = "流程定义信息")
-    public Result deployList(){
-        List<DeployVo> deployVoList = activitiService.deployList();
+    public Result deployList(@RequestParam(value = "current")Integer current,
+                             @RequestParam(value = "pageSize")Integer pageSize,
+                             @RequestParam(value = "procDefName",required = false)String procDefName){
+        List<DeployVo> deployVoList = activitiService.deployList(current,pageSize,procDefName);
         return Result.buildSuccess(deployVoList);
     }
 

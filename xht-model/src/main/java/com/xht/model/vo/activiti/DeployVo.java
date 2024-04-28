@@ -11,9 +11,9 @@ import java.util.Date;
 
 @Data
 public class DeployVo {
+    private String deployName;
     private String procDefId;
     private String deployId;
-    private String procDefKey;
     private String procDefName;
     private String resourceName;
     private Date deployTime;

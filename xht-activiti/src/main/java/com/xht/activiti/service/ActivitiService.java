@@ -15,7 +15,7 @@ import java.util.List;
 public interface ActivitiService {
     void deploy(MultipartFile file);
 
-    List<DeployVo> deployList();
+    List<DeployVo> deployList(Integer current,Integer pageSize,String procDefName);
 
     void apply(ApplyDto applyDto);
 
