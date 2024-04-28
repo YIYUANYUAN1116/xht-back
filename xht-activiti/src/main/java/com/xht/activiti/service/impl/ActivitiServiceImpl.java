@@ -2,6 +2,7 @@ package com.xht.activiti.service.impl;
 
 import com.xht.activiti.service.ActivitiService;
 
+import com.xht.model.constant.ActTaskOperationEnum;
 import com.xht.model.dto.activiti.ApplyDto;
 import com.xht.model.dto.activiti.CompleteTaskDto;
 import com.xht.model.vo.activiti.DeployVo;
@@ -11,12 +12,10 @@ import com.xht.model.vo.common.ResultCodeEnum;
 import com.xht.security.common.service.exception.XhtException;
 import com.xht.security.common.utils.AuthContextUtil;
 import jakarta.persistence.Access;
-import org.activiti.engine.HistoryService;
-import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
-import org.activiti.engine.TaskService;
+import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.history.HistoricTaskInstance;
+import org.activiti.engine.impl.identity.Authentication;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.DeploymentBuilder;
 import org.activiti.engine.repository.ProcessDefinition;
@@ -31,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.zip.ZipInputStream;
 
@@ -91,6 +91,7 @@ public class ActivitiServiceImpl implements ActivitiService {
     public void apply(ApplyDto applyDto) {
         Assert.notNull(applyDto, "applyDto is null");
         Assert.notNull(applyDto.getProcDefId(), "applyDto.getProcDefId() is null");
+        Authentication.setAuthenticatedUserId(String.valueOf(AuthContextUtil.user.getId()));
         runtimeService.startProcessInstanceById(applyDto.getProcDefId(), applyDto.getParamMap());
     }
 
@@ -127,14 +128,18 @@ public class ActivitiServiceImpl implements ActivitiService {
 
     @Override
     public void completeTask(CompleteTaskDto completeTaskDto) {
-        Assert.notNull(completeTaskDto, "applyDto is null");
+        Assert.notNull(completeTaskDto, "completeTaskDto is null");
         Assert.notNull(completeTaskDto.getTaskId(), "completeTaskDto.getTaskId() is null");
         Task task = taskService.createTaskQuery().taskId(completeTaskDto.getTaskId()).singleResult();
         String assignee = task.getAssignee();
-        if (Objects.equals(assignee, String.valueOf(AuthContextUtil.user.getId()))) {
-            taskService.complete(completeTaskDto.getTaskId(),completeTaskDto.getParamMap());
-        } else {
+        if (!Objects.equals(assignee, String.valueOf(AuthContextUtil.user.getId()))) {
             throw new XhtException(ResultCodeEnum.CANNOT_DID);
+        } else {
+
+            if (completeTaskDto.getOperation().equals(ActTaskOperationEnum.APPROVE.name())){
+                taskService.complete(completeTaskDto.getTaskId(),completeTaskDto.getParamMap());
+            }
+            //todo 拒绝
         }
     }
 }

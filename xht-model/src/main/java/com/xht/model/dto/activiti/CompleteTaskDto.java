@@ -13,4 +13,5 @@ import java.util.Map;
 @NoArgsConstructor
 public class CompleteTaskDto {
     private String taskId;
+    private String operation;
     private Map<String,Object> paramMap = new HashMap<>();}
